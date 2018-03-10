@@ -19,4 +19,11 @@ https://www.cnblogs.com/wbyp/p/7392681.html
 		    <artifactId>jstl</artifactId>
 		    <version>1.2</version>
 		</dependency>
+	2.4 Description	Resource	Path	Location	Type Java compiler level does not match the version of the in解决方法
+		http://blog.csdn.net/u013412790/article/details/51501697
+	2.5 web.xml这里的配置要和Project Facts里的Dynamic Web Module保持一致， 本demo都是3.1
+		<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
+         id="WebApp_ID" version="3.1">
 
