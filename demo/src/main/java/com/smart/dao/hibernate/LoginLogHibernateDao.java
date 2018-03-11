@@ -11,10 +11,15 @@ import org.springframework.stereotype.Repository;
 import com.smart.domain.hibernate.LoginLog;
 
 @Repository
-public class LoginLogHibernateDao extends BaseDao {
+public class LoginLogHibernateDao extends BaseDao<LoginLog> {
 
 	public void addLoginLog(LoginLog loginlog) {
-		getHibernateTemplate().save(loginlog);
+		this.getHibernateTemplate().save(loginlog);
+	}
+	
+	public void save(LoginLog loginLog) {
+		this.getHibernateTemplate().save(loginLog);
 	}
 
 }
+

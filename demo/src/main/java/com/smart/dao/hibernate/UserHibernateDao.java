@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.smart.domain.hibernate.User;
 
 @Repository
-public class UserHibernateDao extends BaseDao {
+public class UserHibernateDao extends BaseDao<User> {
 	
 	private static final String GET_USER_BY_USERNAME = "from User u where u.userName = ?";
 

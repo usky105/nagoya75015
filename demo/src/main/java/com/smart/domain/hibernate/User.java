@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
 @Table(name="T_USER")
-public class User implements Serializable{
+public class User extends BaseDomain {
 	
 	@Id
 	@Column(name = "USER_ID")
