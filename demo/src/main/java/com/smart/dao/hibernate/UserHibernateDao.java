@@ -1,10 +1,12 @@
 package com.smart.dao.hibernate;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,8 @@ import com.smart.domain.hibernate.User;
 
 @Repository
 public class UserHibernateDao extends BaseDao {
+	
+	private static final String GET_USER_BY_USERNAME = "from User u where u.userName = ?";
 
 	public void addUser(User user) {
 		getHibernateTemplate().save(user);
@@ -50,4 +54,22 @@ public class UserHibernateDao extends BaseDao {
 		return (List<User>) getHibernateTemplate().find(
 				"from User u where u.userName like ?", userName + "%");
 	}
+	
+	public long getMatchCount(String userName, String password) {
+		Object obj = getHibernateTemplate().iterate(
+				"select count(u.userId) from User u where u.userName = ? and u.password = ?", userName , password).next();
+		return (long) obj;
+		
+	}
+	
+
+	public User findUserByUserName(final String userName) {
+	    List<User> users = (List<User>)getHibernateTemplate().find(GET_USER_BY_USERNAME,userName);
+	    if (users.size() == 0) {
+			return null;
+		}else{
+			return users.get(0);
+		}
+	}
+	
 }

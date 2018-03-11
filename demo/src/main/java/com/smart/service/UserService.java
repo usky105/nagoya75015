@@ -4,20 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.smart.dao.LoginLogDao;
-import com.smart.dao.UserDao;
-import com.smart.domain.LoginLog;
-import com.smart.domain.User;
+import com.smart.dao.hibernate.LoginLogHibernateDao;
+import com.smart.dao.hibernate.UserHibernateDao;
+import com.smart.domain.hibernate.LoginLog;
+import com.smart.domain.hibernate.User;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
-	private UserDao userDao;
-	private LoginLogDao loginLogDao;
+	private UserHibernateDao userDao;
+	private LoginLogHibernateDao loginLogDao;
 
 
 	public boolean hasMatchUser(String userName, String password) {
-		int matchCount =userDao.getMatchCount(userName, password);
+		long matchCount =userDao.getMatchCount(userName, password);
+		System.out.println(matchCount);
 		return matchCount > 0;
 	}
 	
@@ -32,17 +33,17 @@ public class UserService {
 		loginLog.setUserId(user.getUserId());
 		loginLog.setIp(user.getLastIp());
 		loginLog.setLoginDate(user.getLastVisit());
-        userDao.updateLoginInfo(user);
-        loginLogDao.insertLoginLog(loginLog);
+        userDao.updateUser(user);
+        loginLogDao.addLoginLog(loginLog);
 	}
 
 	@Autowired
-	public void setUserDao(UserDao userDao) {
+	public void setUserDao(UserHibernateDao userDao) {
 		this.userDao = userDao;
 	}
 
 	@Autowired
-	public void setLoginLogDao(LoginLogDao loginLogDao) {
+	public void setLoginLogDao(LoginLogHibernateDao loginLogDao) {
 		this.loginLogDao = loginLogDao;
 	}
 }

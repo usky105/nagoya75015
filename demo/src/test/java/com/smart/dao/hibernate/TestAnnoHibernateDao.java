@@ -87,4 +87,11 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
         loginLog.setLoginDate(new Date());
         loginLogDao.addLoginLog(loginLog);  
 	}	
+	
+	@Test
+	public void testGetMatchCount() {
+		long num = userDao.getMatchCount("admin", "123456");
+		System.out.println(num);
+		Assert.assertTrue(num > 0);
+	}
 }

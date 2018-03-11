@@ -5,7 +5,7 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
 import org.testng.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import com.smart.domain.User;
+import com.smart.domain.hibernate.User;
 import static org.testng.Assert.*;
 
 @ContextConfiguration("classpath*:/applicationContext.xml")
