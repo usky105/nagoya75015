@@ -7,21 +7,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户注册</title>
-<script>
+<script type="text/javascript">
    function mycheck(){
-      if(document.all("user.password").value != document.all("again").value){
+      if(document.getElementById('password').value != document.getElementById('again').value){
          alert("两次输入的密码不正确，请更正。");
          return false;
-      }else
-      {
-         return true;
+      } else {
+    	     return true;
       }
    }
 </script>
 </head>
 <body>
 用户注册信息：
-<form action="<c:url value="/register.html" />" method="post" onsubmit="return mycheck()">
+<form action="<c:url value="/register.html" />" method="post" onsubmit="return mycheck(this);">
+
 <c:if test="${!empty errorMsg}">
    <div style="color=red">${errorMsg}</div>
 </c:if>
@@ -34,15 +34,15 @@
 	</tr>
 	<tr>
 		<td width="20%">密码</td>
-		<td width="80%"><input type="password" name="password"/></td>
+		<td width="80%"><input type="password" name="password" id="password"/></td>
 	</tr>
 	<tr>
 		<td width="20%">密码确认</td>
-		<td width="80%"><input type="password" name="again"></td>
+		<td width="80%"><input type="password" name="again" id="again"></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-		   <input type="submit" value="保存">
+		   <input type="submit" value="保存"  >
 		   <input type="reset" value="重置">
 		</td>
 	</tr>

@@ -41,6 +41,7 @@ public class RegisterController extends BaseController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/success");
 		try {
+			user.setLastIp(request.getLocalAddr());
 			userService.register(user);
 		} catch (UserExistException e) {
 			view.addObject("errorMsg", "用户名已经存在，请选择其它的名字。");

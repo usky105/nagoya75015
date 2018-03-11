@@ -1,5 +1,7 @@
 package com.smart.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,7 @@ public class UserService {
 		}else{
 		    user.setCredit(100);
             user.setUserType(1);
+    			user.setLastVisit(new Date());
             userDao.save(user);
 		}
 	}
