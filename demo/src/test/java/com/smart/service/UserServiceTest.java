@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import com.smart.domain.User;
 import static org.testng.Assert.*;
 
-@ContextConfiguration("classpath*:/smart-context.xml")
+@ContextConfiguration("classpath*:/applicationContext.xml")
 public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
 	@Autowired
