@@ -1,6 +1,8 @@
 package com.smart.dao.hibernate;
 
 import com.smart.domain.hibernate.User;
+import com.smart.domain.hibernate.LoginLog;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -23,6 +25,9 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 
 	@Autowired
 	private UserHibernateDao userDao;
+	
+	@Autowired
+	private LoginLogHibernateDao loginLogDao;
 	
 	
 	@Test
@@ -73,8 +78,13 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 		Assert.assertTrue(num > 0);
 	}
 	
-	
-	
-	
-		
+	@Test
+	@Rollback(value=false)
+	public void testAddLoginLog() throws Throwable{
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUserId(1);
+        loginLog.setIp("127.0.0.2");
+        loginLog.setLoginDate(new Date());
+        loginLogDao.addLoginLog(loginLog);  
+	}	
 }
