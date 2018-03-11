@@ -72,4 +72,18 @@ public class UserHibernateDao extends BaseDao<User> {
 		}
 	}
 	
+    /**
+     * 根据用户名查询User对象
+     * @param userName 用户名
+     * @return 对应userName的User对象，如果不存在，返回null。
+     */
+	public User getUserByUserName(String userName){
+	    List<User> users = (List<User>)getHibernateTemplate().find(GET_USER_BY_USERNAME,userName);
+	    if (users.size() == 0) {
+			return null;
+		}else{
+			return users.get(0);
+		}
+    }
+	
 }

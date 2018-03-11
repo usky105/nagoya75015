@@ -14,6 +14,23 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Table(name="T_USER")
 public class User extends BaseDomain {
 	
+    /**
+     *锁定用户对应的状态值 
+     */
+    public static final int USER_LOCK = 1;
+    /**
+     * 用户解锁对应的状态值
+     */
+    public static final int USER_UNLOCK = 0;
+    /**
+     * 管理员类型
+     */
+    public static final int FORUM_ADMIN = 2;
+    /**
+     * 普通用户类型
+     */
+    public static final int NORMAL_USER = 1;
+	
 	@Id
 	@Column(name = "USER_ID")
 	private int userId;

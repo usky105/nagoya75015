@@ -8,6 +8,8 @@ import com.smart.dao.hibernate.LoginLogHibernateDao;
 import com.smart.dao.hibernate.UserHibernateDao;
 import com.smart.domain.hibernate.LoginLog;
 import com.smart.domain.hibernate.User;
+import com.smart.exception.UserExistException;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -46,4 +48,28 @@ public class UserService {
 	public void setLoginLogDao(LoginLogHibernateDao loginLogDao) {
 		this.loginLogDao = loginLogDao;
 	}
+	
+	/**
+	 * 注册一个新用户,如果用户名已经存在此抛出UserExistException的异常
+	 * @param user 
+	 */
+	public void register(User user) throws UserExistException{
+		User u = this.getUserByUserName(user.getUserName());
+		if(u != null){
+		    throw new UserExistException("用户名已经存在");
+		}else{
+		    user.setCredit(100);
+            user.setUserType(1);
+            userDao.save(user);
+		}
+	}
+	
+	/**
+	  * 根据用户名/密码查询 User对象
+	  * @param userName 用户名
+	  * @return User
+	  */
+	 public User getUserByUserName(String userName){
+	     return userDao.getUserByUserName(userName);
+	 }
 }
