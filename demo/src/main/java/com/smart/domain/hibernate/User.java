@@ -24,8 +24,14 @@ public class User implements Serializable{
 	@Column(name = "PASSWORD")
 	private String password;
 	
-	@Column(name = "CREDITS")
-	private int credits;
+	@Column(name = "USER_TYPE")
+	private int userType;
+	
+	@Column(name = "LOCKED")
+	private int locked;
+	
+	@Column(name = "CREDIT")
+	private int credit;
 
 	@Column(name = "LAST_IP")
 	private String lastIp;
@@ -47,6 +53,22 @@ public class User implements Serializable{
 
 	public void setLastVisit(Date lastVisit) {
 		this.lastVisit = lastVisit;
+	}
+	
+	public int getUserType() {
+		return userType;
+	}
+
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+	
+	public int getLocked() {
+		return locked;
+	}
+
+	public void setLocked(int locked) {
+		this.locked = locked;
 	}
 
 	public int getUserId() {
@@ -73,12 +95,12 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public int getCredits() {
-		return credits;
+	public int getCredit() {
+		return credit;
 	}
 
-	public void setCredits(int credits) {
-		this.credits = credits;
+	public void setCredit(int credit) {
+		this.credit = credit;
 	}
 	
 	public String toString(){

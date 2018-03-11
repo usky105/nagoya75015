@@ -19,7 +19,7 @@ import static org.testng.Assert.*;
 import java.util.Date;
 import java.util.List;
 
-@ContextConfiguration(locations = { "classpath:applicationContext-hbt-anno.xml" })
+@ContextConfiguration(locations = { "classpath:smart-dao-hbt.xml" })
 @Transactional
 public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringContextTests {
 
@@ -34,7 +34,7 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 	@Rollback(value=false)
 	public void testAddUser() throws Throwable{
         User user = new User();
-        user.setCredits(5);
+        user.setCredit(5);
         user.setUserName("usky");
         user.setPassword("123456");
         userDao.addUser(user);
@@ -44,7 +44,7 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 	@Rollback(value=false)
 	public void testUpdateUser() throws Throwable{
 		User user = userDao.getUser(3);
-        user.setCredits(7);
+        user.setCredit(7);
         user.setUserName("usky");
         user.setPassword("222222");
         user.setLastVisit(new Date());
@@ -54,20 +54,20 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 	
 	@Test
 	public void testFindUserByName() {
-       List<User> users = userDao.findUserByName("admin");
+       List<User> users = userDao.findUserByName("tom");
        Assert.assertTrue(users.size() > 0);
 	}	
 	
 	@Test
 	public void testgetUser() {
        User user = userDao.getUser(1);
-       assertEquals(user.getUserName(), "admin");
+       assertEquals(user.getUserName(), "tom");
 	}
 	
 	@Test
 	public void testgetUserNum() {
 		Long num = userDao.getUserNum();
-		System.out.println(num);
+		System.out.println("testgetUserNum" + num);
 		Assert.assertTrue(num > 0);
 	}
 	
@@ -90,7 +90,7 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 	
 	@Test
 	public void testGetMatchCount() {
-		long num = userDao.getMatchCount("admin", "123456");
+		long num = userDao.getMatchCount("tom", "1234");
 		System.out.println(num);
 		Assert.assertTrue(num > 0);
 	}

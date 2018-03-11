@@ -28,7 +28,7 @@ public class UserService {
 
 	@Transactional
     public void loginSuccess(User user) {
-		user.setCredits( 5 + user.getCredits());
+		user.setCredit( 5 + user.getCredit());
 		LoginLog loginLog = new LoginLog();
 		loginLog.setUserId(user.getUserId());
 		loginLog.setIp(user.getLastIp());
