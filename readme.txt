@@ -1,4 +1,4 @@
-1. 构建Maven项目的完整过程--普通web项目（Eclipse）
+﻿1. 构建Maven项目的完整过程--普通web项目（Eclipse）
 https://www.cnblogs.com/wbyp/p/7392681.html
 2. 问题记录
 	2.1 The superclass "javax.servlet.http.HttpServlet" was not found on the Java Build Path
@@ -26,4 +26,8 @@ https://www.cnblogs.com/wbyp/p/7392681.html
          xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
          id="WebApp_ID" version="3.1">
+	2.6 ehcache问题
+		1，通过静态工厂方法来根据需要创建需要的类型的cachemanager，应该就是多态；
+		2，关闭，也就是移除早版本的cacheManager，然后创建最新的。
+	  http://mvnrepository.com/artifact/net.sf.ehcache/ehcache/2.4.8
 

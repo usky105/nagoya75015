@@ -12,8 +12,8 @@
 	
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-		p:dataSource-ref="dataSource" />
+		  class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		  p:sessionFactory-ref="sessionFactory" />
 		
 	<!--使用强大的切点表达式语言轻松定义目标方法 -->
 	<aop:config>
@@ -31,5 +31,11 @@
 			<tx:method name="*" />
 		</tx:attributes>
 	</tx:advice>
+   
+
+    <!-- 基于EHCache的系统缓存管理器-->
+    <bean id="cacheManager"
+          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+          p:configLocation="classpath:ehcache-nagoya.xml"/>
 
 </beans>

@@ -19,21 +19,29 @@
     <bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
           lazy-init="true"/>
 
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-          p:dataSource-ref="dataSource">
-        <property name="packagesToScan" value="com.smart.domain.hibernate"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">
-                    org.hibernate.dialect.MySQLDialect
-                </prop>
-                <prop key="hibernate.show_sql">
-                    true
-                </prop>
-            </props>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	    <property name="packagesToScan">
+            <list>
+                <value>com.smart.domain.hibernate</value>
+            </list>
         </property>
-    </bean>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.region.factory_class">
+					org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>
+				<!-- <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property> -->
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+			</props>
+		</property>
+	</bean>
 
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate4.HibernateTemplate"

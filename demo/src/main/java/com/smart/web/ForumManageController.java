@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.smart.domain.hibernate.User;
+import com.smart.domain.hibernate.Board;
+import com.smart.service.ForumService;
 
 
 import java.util.List;
@@ -23,9 +25,16 @@ public class ForumManageController extends BaseController {
 	
 	private UserService userService;
 	
+	private ForumService forumService;
+	
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+	
+	@Autowired
+	public void setForumService(ForumService forumService) {
+		this.forumService = forumService;
 	}
 
 	/**
@@ -68,6 +77,43 @@ public class ForumManageController extends BaseController {
 			view.setViewName("/fail");
 		} else {
 			user.setLocked(Integer.parseInt(locked));
+			userService.update(user);
+			view.setViewName("/success");
+		}
+		return view;
+	}
+	
+	/**
+	 * 指定论坛管理员的页面
+	 * @return
+	 */
+	@RequestMapping(value = "/forum/setBoardManagerPage", method = RequestMethod.GET)
+	public ModelAndView setBoardManagerPage() {
+		ModelAndView view =new ModelAndView();
+		List<Board> boards = forumService.getAllBoards();
+		List<User> users = userService.getAllUsers();
+		view.addObject("boards", boards);
+		view.addObject("users", users);
+		view.setViewName("/setBoardManager");
+		return view;
+	}
+	
+    /**
+     * 设置版块管理
+     * @return
+     */
+	@RequestMapping(value = "/forum/setBoardManager", method = RequestMethod.POST)
+	public ModelAndView setBoardManager(@RequestParam("userName") String userName
+			,@RequestParam("boardId") String boardId) {
+		ModelAndView view =new ModelAndView();
+		User user = userService.getUserByUserName(userName);
+		if (user == null) {
+			view.addObject("errorMsg", "用户名(" + userName
+					+ ")不存在");
+			view.setViewName("/fail");
+		} else {
+			Board board = forumService.getBoardById(Integer.parseInt(boardId));
+			user.getManBoards().add(board);
 			userService.update(user);
 			view.setViewName("/success");
 		}

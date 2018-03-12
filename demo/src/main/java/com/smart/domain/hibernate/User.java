@@ -2,11 +2,18 @@ package com.smart.domain.hibernate;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.CascadeType;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -55,6 +62,10 @@ public class User extends BaseDomain {
 	
 	@Column(name = "LAST_VISIT")
 	private Date lastVisit;
+	
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @JoinTable(name = "t_board_manager", joinColumns = {@JoinColumn(name ="user_id" )}, inverseJoinColumns = {@JoinColumn(name = "board_id") })
+	private Set<Board> manBoards = new HashSet<Board>();
 
 	public String getLastIp() {
 		return lastIp;
@@ -71,6 +82,16 @@ public class User extends BaseDomain {
 	public void setLastVisit(Date lastVisit) {
 		this.lastVisit = lastVisit;
 	}
+	
+    public void setManBoards(Set<Board> manBoards)
+    {
+        this.manBoards = manBoards;
+    }
+	
+	public Set<Board> getManBoards()
+    {
+        return manBoards;
+    }
 	
 	public int getUserType() {
 		return userType;
