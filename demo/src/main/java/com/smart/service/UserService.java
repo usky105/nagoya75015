@@ -1,7 +1,7 @@
 package com.smart.service;
 
 import java.util.Date;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -75,4 +75,20 @@ public class UserService {
 	 public User getUserByUserName(String userName){
 	     return userDao.getUserByUserName(userName);
 	 }
+	 
+	/**
+	 * 获取所有用户
+	 * @return 所有用户
+	 */
+	public List<User> getAllUsers(){
+		return userDao.loadAll();
+	}
+	
+	/**
+     * 更新用户
+     * @param user 
+     */
+    public void update(User user){
+        userDao.update(user);
+    }
 }

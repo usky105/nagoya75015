@@ -12,7 +12,6 @@ import com.smart.domain.hibernate.User;
 public class BaseController {
 	protected static final String ERROR_MSG_KEY = "errorMsg";
 
-	
 	/**
 	 * 获取保存在Session中的用户对象
 	 * 

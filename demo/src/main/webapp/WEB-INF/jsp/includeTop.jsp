@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<% 
+    String context = request.getContextPath();
+    request.setAttribute("context",context);
+%>
 <a href="<c:url value="/index.jsp"/>">首页</a>&nbsp;&nbsp;
 <c:if test="${!empty USER_CONTEXT.userName}">
    ${USER_CONTEXT.userName}(${USER_CONTEXT.credit}),欢迎您的到来,<a href="<c:url value="/login/doLogout.html"/>">注销</a> 

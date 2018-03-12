@@ -5,8 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>操作成功</title>
+<%
+    String context = request.getContextPath();
+    request.setAttribute("context",context);
+%>
 <script language=javascript>
-   setTimeout("window.location.href='index.html'",180)
+	setTimeout("window.location.href='${context}/index.html'",180)
 </script>
 </head>
 <body>
