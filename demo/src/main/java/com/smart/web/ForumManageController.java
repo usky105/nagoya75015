@@ -119,5 +119,21 @@ public class ForumManageController extends BaseController {
 		}
 		return view;
 	}
+	
+	@RequestMapping(value = "/forum/addBoardPage", method = RequestMethod.GET)
+	public String addBoardPage() {
+		return "/addBoard";
+	}
+	
+	/**
+	 * 添加一个主题帖
+	 * @param board
+	 * @return
+	 */
+	@RequestMapping(value = "/forum/addBoard", method = RequestMethod.POST)
+	public String addBoard(Board board) {
+		forumService.addBoard(board);
+		return "/addBoardSuccess";
+	}
 
 }

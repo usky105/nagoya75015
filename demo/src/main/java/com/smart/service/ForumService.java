@@ -39,5 +39,16 @@ public class ForumService {
 	public Board getBoardById(int boardId) {
 		return boardDao.get(boardId);
 	}
+	
+	/**
+	 * 创建一个新的论坛版块
+	 * 
+	 * @param board
+	 */
+	public void addBoard(Board board) {
+		boardDao.save(board);
+	}
+	
+	
 
 }
