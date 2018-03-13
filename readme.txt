@@ -36,4 +36,6 @@ https://www.cnblogs.com/wbyp/p/7392681.html
     			<artifactId>jsp-api</artifactId>
     			<version>2.0</version>
 		</dependency>
+	2.8 SpringMVC配置文件The prefix "mvc" for element "mvc:annotation-driven" is not bound 的解决方法
+		http://blog.csdn.net/hao495430759/article/details/8953720
 
