@@ -14,9 +14,15 @@ import com.smart.domain.hibernate.*;
  */
 @Service
 public class ForumService {
-
+	private TopicDao topicDao;
 	private BoardDao boardDao;
 
+	
+	@Autowired
+	public void setTopicDao(TopicDao topicDao) {
+		this.topicDao = topicDao;
+	}
+	
 	@Autowired
 	public void setBoardDao(BoardDao boardDao) {
 		this.boardDao = boardDao;
@@ -57,6 +63,15 @@ public class ForumService {
 		Board board = boardDao.get(boardId);
 		boardDao.remove(board);
 	}
+	
+	/**
+	 * 获取论坛版块某一页主题帖，以最后回复时间降序排列
+	 * @param boardId
+	 * @return
+	 */
+    public Page getPagedTopics(int boardId,int pageNo,int pageSize){
+		return topicDao.getPagedTopics(boardId,pageNo,pageSize);
+    }
 	
 	
 

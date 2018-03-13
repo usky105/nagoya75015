@@ -30,4 +30,10 @@ https://www.cnblogs.com/wbyp/p/7392681.html
 		1，通过静态工厂方法来根据需要创建需要的类型的cachemanager，应该就是多态；
 		2，关闭，也就是移除早版本的cacheManager，然后创建最新的。
 	  http://mvnrepository.com/artifact/net.sf.ehcache/ehcache/2.4.8
+	2.7 javax.servlet.jsp.JspException cannot be resolved to a type  
+		<dependency>
+    			<groupId>javax.servlet</groupId>
+    			<artifactId>jsp-api</artifactId>
+    			<version>2.0</version>
+		</dependency>
 

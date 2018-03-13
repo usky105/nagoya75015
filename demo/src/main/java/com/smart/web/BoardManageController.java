@@ -22,6 +22,7 @@ import com.smart.cons.CommonConstant;
 import com.smart.domain.hibernate.Board;
 import com.smart.domain.hibernate.User;
 import com.smart.service.ForumService;
+import com.smart.dao.hibernate.Page;
 
 /**
  *   这个Action负责处理论坛普通操作功能的请求，包括：显示论坛版块列表、显示论坛版块主题列表、
@@ -48,6 +49,25 @@ public class BoardManageController extends BaseController {
 		}
 		String targetUrl = "/index.html";
 		return "redirect:"+targetUrl;
+	}
+	
+	/**
+	 * 列出论坛模块下的主题帖子
+	 * 
+	 * @param boardId
+	 * @return
+	 */
+	@RequestMapping(value = "/board/listBoardTopics-{boardId}", method = RequestMethod.GET)
+	public ModelAndView listBoardTopics(@PathVariable Integer boardId,@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+		ModelAndView view =new ModelAndView();
+		Board board = forumService.getBoardById(boardId);
+		pageNo = pageNo==null?1:pageNo;
+		Page pagedTopic = forumService.getPagedTopics(boardId, pageNo,
+				CommonConstant.PAGE_SIZE);
+		view.addObject("board", board);
+		view.addObject("pagedTopic", pagedTopic);
+		view.setViewName("/listBoardTopics");
+		return view;
 	}
 	
 
