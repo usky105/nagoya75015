@@ -107,6 +107,27 @@ public class ForumService {
 		userDao.update(user);
 	}
 	
+	/**
+	 * 删除一个主题帖，用户积分减50，论坛版块主题帖数减1，删除
+	 * 主题帖所有关联的帖子。
+	 * @param topicId 要删除的主题帖ID
+	 */
+	public void removeTopic(int topicId) {   
+		Topic topic = topicDao.get(topicId);
+
+		// 将论坛版块的主题帖数减1
+		Board board = boardDao.get(topic.getBoardId());
+		board.setTopicNum(board.getTopicNum() - 1);
+
+		// 发表该主题帖用户扣除50积分
+		User user = topic.getUser();
+		user.setCredit(user.getCredit() - 50);
+
+		// 删除主题帖及其关联的帖子
+		topicDao.remove(topic);
+		postDao.deleteTopicPosts(topicId);
+	}
+	
 	
 
 }

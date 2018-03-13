@@ -105,5 +105,18 @@ public class BoardManageController extends BaseController {
 		return "redirect:"+targetUrl;
 	}
 	
+	/**
+	 * 删除主题
+	 */
+	@RequestMapping(value = "/board/removeTopic", method = RequestMethod.GET)
+	public String removeTopic(@RequestParam("topicIds") String topicIds,@RequestParam("boardId") String boardId) {
+		String[] arrIds = topicIds.split(",");
+		for (int i = 0; i < arrIds.length; i++) {
+			forumService.removeTopic(new Integer(arrIds[i]));
+		}
+		String targetUrl = "/board/listBoardTopics-" + boardId + ".html";
+		return "redirect:"+targetUrl;
+	}
+	
 
 }
