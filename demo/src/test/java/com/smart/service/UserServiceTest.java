@@ -46,7 +46,6 @@ public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTes
 	}
 	
 	@Test
-	@Rollback(value=false)
 	public void register() throws UserExistException{
 		User user = new User();
 		user.setUserName("tom1");

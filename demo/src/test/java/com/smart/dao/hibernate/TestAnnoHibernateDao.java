@@ -31,7 +31,7 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 	
 	
 	@Test
-	@Rollback(value=false)
+	@Rollback
 	public void testAddUser() throws Throwable{
         User user = new User();
         user.setCredit(5);
@@ -41,7 +41,7 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 	}	
 	
 	@Test
-	@Rollback(value=false)
+	@Rollback
 	public void testUpdateUser() throws Throwable{
 		User user = userDao.getUser(3);
         user.setCredit(7);
@@ -79,7 +79,7 @@ public class TestAnnoHibernateDao extends AbstractTransactionalTestNGSpringConte
 	}
 	
 	@Test
-	@Rollback(value=false)
+	@Rollback
 	public void testAddLoginLog() throws Throwable{
         LoginLog loginLog = new LoginLog();
         loginLog.setUserId(1);
