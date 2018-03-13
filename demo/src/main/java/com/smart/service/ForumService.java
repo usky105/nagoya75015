@@ -16,6 +16,8 @@ import com.smart.domain.hibernate.*;
 public class ForumService {
 	private TopicDao topicDao;
 	private BoardDao boardDao;
+	private UserHibernateDao userDao;
+	private PostDao postDao;
 
 	
 	@Autowired
@@ -26,6 +28,11 @@ public class ForumService {
 	@Autowired
 	public void setBoardDao(BoardDao boardDao) {
 		this.boardDao = boardDao;
+	}
+	
+	@Autowired
+	public void setUserDao(UserHibernateDao userDao) {
+		this.userDao = userDao;
 	}
 
 	/**
@@ -55,6 +62,10 @@ public class ForumService {
 		boardDao.save(board);
 	}
 	
+	@Autowired
+	public void setPostDao(PostDao postDao) {
+		this.postDao = postDao;
+	}
 	/**
 	 * 删除一个版块
 	 * @param boardId
@@ -72,6 +83,29 @@ public class ForumService {
     public Page getPagedTopics(int boardId,int pageNo,int pageSize){
 		return topicDao.getPagedTopics(boardId,pageNo,pageSize);
     }
+    
+	/**
+	 * 发表一个主题帖子,用户积分加10，论坛版块的主题帖数加1
+	 * @param topic
+	 */
+	public void addTopic(Topic topic) {
+		Board board = (Board) boardDao.get(topic.getBoardId());
+		board.setTopicNum(board.getTopicNum() + 1);	
+		topicDao.save(topic);
+		//topicDao.getHibernateTemplate().flush();
+		
+		topic.getMainPost().setTopic(topic);
+		MainPost post = topic.getMainPost();
+		post.setCreateTime(new Date());
+		post.setUser(topic.getUser());
+		post.setPostTitle(topic.getTopicTitle());
+		post.setBoardId(topic.getBoardId());
+		postDao.save(topic.getMainPost());
+		
+		User user = topic.getUser();	
+		user.setCredit(user.getCredit() + 10);
+		userDao.update(user);
+	}
 	
 	
 

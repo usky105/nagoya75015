@@ -43,7 +43,8 @@ public class Topic extends BaseDomain {
 	@Column(name = "board_id")
 	private int boardId;
 
-
+	@Transient
+	private MainPost mainPost = new MainPost();
 
 	@Column(name = "last_post")
 	private Date lastPost = new Date();
@@ -131,7 +132,13 @@ public class Topic extends BaseDomain {
 		this.views = views;
 	}
 
+	public MainPost getMainPost() {
+		return mainPost;
+	}
 
+	public void setMainPost(MainPost mainPost) {
+		this.mainPost = mainPost;
+	}
 
 	// public Set<MainPost> getMainPosts()
 	// {
