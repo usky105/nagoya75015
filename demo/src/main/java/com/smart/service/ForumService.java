@@ -128,6 +128,21 @@ public class ForumService {
 		postDao.deleteTopicPosts(topicId);
 	}
 	
+	/**
+	 * 将帖子置为精华主题帖
+	 * @param topicId 操作的目标主题帖ID
+	 * @param digest 精华级别 可选的值为1，2，3
+	 */
+	public void makeDigestTopic(int topicId){
+		Topic topic = topicDao.get(topicId);
+		topic.setDigest(Topic.DIGEST_TOPIC);
+		User user = topic.getUser();
+		user.setCredit(user.getCredit() + 100);
+		//topic 处于Hibernate受管状态，无须显示更新
+		//topicDao.update(topic);
+		//userDao.update(user);
+	}
+	
 	
 
 }

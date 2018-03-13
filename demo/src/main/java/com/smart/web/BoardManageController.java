@@ -118,5 +118,18 @@ public class BoardManageController extends BaseController {
 		return "redirect:"+targetUrl;
 	}
 	
+	/**
+	 * 设置精华帖
+	 */
+	@RequestMapping(value = "/board/makeDigestTopic", method = RequestMethod.GET)
+	public String makeDigestTopic(@RequestParam("topicIds") String topicIds,@RequestParam("boardId") String boardId) {
+		String[] arrIds = topicIds.split(",");
+		for (int i = 0; i < arrIds.length; i++) {
+			forumService.makeDigestTopic(new Integer(arrIds[i]));
+		}
+		String targetUrl = "/board/listBoardTopics-" + boardId + ".html";
+		return "redirect:"+targetUrl;
+	}
+	
 
 }
