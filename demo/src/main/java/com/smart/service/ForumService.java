@@ -49,6 +49,15 @@ public class ForumService {
 		boardDao.save(board);
 	}
 	
+	/**
+	 * 删除一个版块
+	 * @param boardId
+	 */
+	public void removeBoard(int boardId){
+		Board board = boardDao.get(boardId);
+		boardDao.remove(board);
+	}
+	
 	
 
 }

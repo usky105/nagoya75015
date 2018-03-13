@@ -44,7 +44,8 @@ public class ForumManageController extends BaseController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView listAllBoards() {
 		ModelAndView view =new ModelAndView();
-
+		List<Board> boards = forumService.getAllBoards();
+		view.addObject("boards", boards);
 		view.setViewName("/listAllBoards");
 		return view;
 	}
