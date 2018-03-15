@@ -49,8 +49,8 @@ public class BoardDaoTest  extends UnitilsTestNG {
         boardDao.remove(board);
     }
 
-    //@Test
-    //@DataSet("XiaoChun.Boards.xls")//准备数据
+    @Test
+    @DataSet("XiaoChun.Boards.xls")//准备数据
     public void getBoard() {
         Board board = boardDao.load(1);
         assertNotNull(board);
