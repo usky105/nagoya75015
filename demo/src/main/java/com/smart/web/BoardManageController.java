@@ -144,7 +144,7 @@ public class BoardManageController extends BaseController {
 		Topic topic = forumService.getTopicByTopicId(topicId);
 		pageNo = pageNo==null?1:pageNo;
 		Page pagedPost = forumService.getPagedPosts(topicId, pageNo,
-				CommonConstant.PAGE_SIZE);
+				CommonConstant.PAGE_TOPICPOST_SIZE);
 		// 为回复帖子表单准备数据
 		view.addObject("topic", topic);
 		view.addObject("pagedPost", pagedPost);

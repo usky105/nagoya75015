@@ -23,4 +23,9 @@ public class CommonConstant
     * 每页的记录数
     */
    public static final int PAGE_SIZE = 3;
+   
+   /**
+    * 回复：每页的记录数
+    */
+   public static final int PAGE_TOPICPOST_SIZE = 8;
 }
