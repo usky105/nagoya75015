@@ -131,5 +131,25 @@ public class BoardManageController extends BaseController {
 		return "redirect:"+targetUrl;
 	}
 	
+	/**
+	 * 列出主题的所有帖子
+	 * 
+	 * @param topicId
+	 * @return
+	 */
+	@RequestMapping(value = "/board/listTopicPosts-{topicId}", method = RequestMethod.GET)
+	public ModelAndView listTopicPosts(@PathVariable Integer topicId,@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+		ModelAndView view =new ModelAndView();
+		Topic topic = forumService.getTopicByTopicId(topicId);
+		pageNo = pageNo==null?1:pageNo;
+		Page pagedPost = forumService.getPagedPosts(topicId, pageNo,
+				CommonConstant.PAGE_SIZE);
+		// 为回复帖子表单准备数据
+		view.addObject("topic", topic);
+		view.addObject("pagedPost", pagedPost);
+		view.setViewName("/listTopicPosts");
+		return view;
+	}
+	
 
 }

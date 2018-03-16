@@ -143,6 +143,86 @@ public class ForumService {
 		//userDao.update(user);
 	}
 	
+	/**
+	 * 根据topicId获取Topic对象
+	 * @param topicId
+	 * @return Topic
+	 */
+	public Topic getTopicByTopicId(int topicId) {
+		return topicDao.get(topicId);
+	}
+	
+	/**
+	 * 添加一个回复帖子，用户积分加5分，主题帖子回复数加1并更新最后回复时间
+	 * @param post
+	 */
+	public void addPost(Post post){
+		postDao.save(post);
+		
+		User user = post.getUser();
+		user.setCredit(user.getCredit() + 5);
+		userDao.update(user);
+		
+		Topic topic = topicDao.get(post.getTopic().getTopicId());
+		topic.setReplies(topic.getReplies() + 1);
+		topic.setLastPost(new Date());
+		//topic处于Hibernate受管状态，无须显示更新
+		//topicDao.update(topic);
+	}
+	
+	/**
+	 * 删除一个回复的帖子，发表回复帖子的用户积分减20，主题帖的回复数减1
+	 * @param postId
+	 */
+	public void removePost(int postId){
+		Post post = postDao.get(postId);
+		postDao.remove(post);
+		
+		Topic topic = topicDao.get(post.getTopic().getTopicId());
+		topic.setReplies(topic.getReplies() - 1);
+		
+		User user =post.getUser();
+		user.setCredit(user.getCredit() - 20);
+		
+		//topic处于Hibernate受管状态，无须显示更新
+		//topicDao.update(topic);
+		//userDao.update(user);
+	}
+	
+	/**
+	 * 获取回复帖子的对象
+	 * @param postId
+	 * @return 回复帖子的对象
+	 */
+	public Post getPostByPostId(int postId){
+		return postDao.get(postId);
+	}
+	
+	/**
+	 * 将用户设为论坛版块的管理员
+	 * @param boardId  论坛版块ID
+	 * @param userName 设为论坛管理的用户名
+	 */
+	public void addBoardManager(int boardId,String userName){
+	   	User user = userDao.getUserByUserName(userName);
+	   	if(user == null){
+	   		throw new RuntimeException("用户名为"+userName+"的用户不存在。");
+	   	}else{
+            Board board = boardDao.get(boardId);
+            user.getManBoards().add(board);
+            userDao.update(user);
+	   	}
+	}
+	
+    /**
+     * 获取同主题每一页帖子，以最后回复时间降序排列
+     * @param boardId
+     * @return
+     */
+    public Page getPagedPosts(int topicId,int pageNo,int pageSize){
+        return postDao.getPagedPosts(topicId,pageNo,pageSize);
+    } 
+	
 	
 
 }

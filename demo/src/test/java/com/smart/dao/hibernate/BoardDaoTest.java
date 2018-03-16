@@ -45,7 +45,7 @@ public class BoardDaoTest  extends UnitilsTestNG {
     @DataSet(value = "XiaoChun.Boards.xls")//准备数据
     @ExpectedDataSet(value = "XiaoChun.ExpectedBoards.xls")
     public void removeBoard() {
-        Board board = boardDao.get(8);
+        Board board = boardDao.get(7);
         boardDao.remove(board);
     }
 
