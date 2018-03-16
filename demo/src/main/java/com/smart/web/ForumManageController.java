@@ -2,7 +2,11 @@
 package com.smart.web;
 
 import com.smart.service.UserService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +27,17 @@ import java.util.List;
 @Controller
 public class ForumManageController extends BaseController {
 	
+	private static Logger LOGGER = LoggerFactory.getLogger(ForumManageController.class);
+	
 	private UserService userService;
 	
 	private ForumService forumService;
+	
+
+	
+	@Value("#{httpServerUrl['name']}")
+	private String nameFromProperties;
+	
 	
 	@Autowired
 	public void setUserService(UserService userService) {
@@ -43,9 +55,15 @@ public class ForumManageController extends BaseController {
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView listAllBoards() {
+		
+		LOGGER.info("start.....");
+		System.out.println(nameFromProperties);		
+		
 		ModelAndView view =new ModelAndView();
 		List<Board> boards = forumService.getAllBoards();
 		view.addObject("boards", boards);
+		view.addObject("nameFromProperties", nameFromProperties);
+
 		view.setViewName("/listAllBoards");
 		return view;
 	}

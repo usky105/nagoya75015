@@ -80,5 +80,6 @@
 	         </script>
 			<input type="button" value="删除" onclick="deleteBoards()">
 		</c:if>
+version : ${nameFromProperties}
 </body>
 </html>
