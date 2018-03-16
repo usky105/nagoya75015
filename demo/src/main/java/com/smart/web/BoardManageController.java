@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.smart.cons.CommonConstant;
 import com.smart.domain.hibernate.Board;
+import com.smart.domain.hibernate.Post;
 import com.smart.domain.hibernate.User;
 import com.smart.domain.hibernate.Topic;
 import com.smart.service.ForumService;
@@ -149,6 +150,23 @@ public class BoardManageController extends BaseController {
 		view.addObject("pagedPost", pagedPost);
 		view.setViewName("/listTopicPosts");
 		return view;
+	}
+	
+	/**
+	 * 回复主题
+	 * 
+	 * @param request
+	 * @param post
+	 * @return
+	 */
+	@RequestMapping(value = "/board/addPost")
+	public String addPost(HttpServletRequest request, Post post) {
+		post.setCreateTime(new Date());
+		post.setUser(getSessionUser(request));
+		forumService.addPost(post);
+		String targetUrl = "/board/listTopicPosts-"
+				+ post.getTopic().getTopicId() + ".html";
+		return "redirect:"+targetUrl;
 	}
 	
 
